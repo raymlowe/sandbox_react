@@ -13,6 +13,11 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
+======================================================================
+packages used:
+
+npm install jquery
+
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
