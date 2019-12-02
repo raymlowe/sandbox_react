@@ -27,7 +27,7 @@ class App extends React.Component{
 	componentDidMount = ()=>{
 		$.ajax({
 	           type: "GET",
-	           url: 'https://jsonplaceholder.typicode.com/todos/1',
+	           url: 'http://ryazan.bcgov:1776/searchAdaptationLayerWS/data/upload/mindbreeze/properties/get?accesstype=PRIVATE&environment=QA',
 	           data: {},
 	           xhrFields: {
 	             withCredentials: false
@@ -43,7 +43,7 @@ class App extends React.Component{
 	
 	render(){
 		return(
-			<div class="data">Title: {this.state.result.title}. ID: {this.state.result.id}</div>
+			<div class="data">Title: {this.state.result.name}. ID: {this.state.result.estimated_count}</div>
 		);
 		
 	}
