@@ -32,7 +32,8 @@ class App extends React.Component{
 	componentDidMount = ()=>{
 		$.ajax({
 	           type: "GET",
-	           url: 'http://ryazan.bcgov:1776/searchAdaptationLayerWS/data/upload/mindbreeze/properties/get?accesstype=PRIVATE&environment=QA',
+	           //url: 'http://ryazan.bcgov:1776/searchAdaptationLayerWS/data/upload/mindbreeze/properties/get?accesstype=PRIVATE&environment=QA',
+	           url: 'https://jsonplaceholder.typicode.com/posts/1',
 	           data: {},
 	           xhrFields: {
 	             withCredentials: false
@@ -48,7 +49,12 @@ class App extends React.Component{
 	
 	render(){
 		return(
-			<div class="data">Title: {this.state.result.name}. ID: {this.state.result.estimated_count}</div>
+			<div className="data">
+				Title: {this.state.result.name} <br />
+				ID: {this.state.result.estimated_count} <br />
+				userId:{this.state.result.userId} <br />
+				body:{this.state.result.body}
+			</div>
 		);
 		
 	}
