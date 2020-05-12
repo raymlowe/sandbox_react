@@ -36,7 +36,12 @@ import FroalaEditor from 'react-froala-wysiwyg';
   class Froala extends React.Component {
     render(){
       return(
-        <FroalaEditor tag='textarea'/>
+        <FroalaEditor
+          tag='textarea'
+          config={this.config}
+          model={this.state.model}
+          onModelChange={this.handleModelChange}
+        />
       )
     }
 
