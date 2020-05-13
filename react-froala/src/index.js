@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 // Require Editor JS files.
 import 'froala-editor/js/froala_editor.pkgd.min.js';
 
@@ -12,16 +13,21 @@ import 'font-awesome/css/font-awesome.css';
 
 import FroalaEditor from 'react-froala-wysiwyg';
 
-
-const App = () => (
-  <div>
-     <h1>Hello world!!</h1>
-  </div>
-)
+// Include special components if required.
+// import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+// import FroalaEditorA from 'react-froala-wysiwyg/FroalaEditorA';
+// import FroalaEditorButton from 'react-froala-wysiwyg/FroalaEditorButton';
+// import FroalaEditorImg from 'react-froala-wysiwyg/FroalaEditorImg';
+// import FroalaEditorInput from 'react-froala-wysiwyg/FroalaEditorInput';
 
 // Render Froala Editor component.
-ReactDOM.render(<FroalaEditor tag='textarea'/>, document.getElementById('root'));
+
+<FroalaEditor
+  tag='textarea'
+  config={this.config}
+  model={this.state.model}
+  onModelChange={this.handleModelChange}
+/>
 
 
-
-//ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<FroalaEditor tag='textarea'/>, document.getElementById('editor'));
