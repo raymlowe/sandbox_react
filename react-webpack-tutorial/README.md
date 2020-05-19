@@ -4,12 +4,15 @@ mkdir webpack-react-tutorial && cd $_
 mkdir -p src
 npm init -y
 
+==INSTALL WEBPACK
+
 npm i webpack webpack-cli --save-dev
 IN package.json
 "scripts": {
   "build": "webpack --mode production"
 }
 
+==INSTAL BABEL
 npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
 CREATE new file: .babelrc
 IN .babelrc in ROOT
@@ -159,7 +162,7 @@ TEST:
 npm run build
 
 
-
+==SERVER SETUP / AUTO DEPLOY
 npm i webpack-dev-server --save-dev
 
 IN package.json
