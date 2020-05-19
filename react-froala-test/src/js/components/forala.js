@@ -72,16 +72,15 @@ Froalaeditor.DefineIcon('alert', {NAME: 'info', SVG_KEY: 'help'});
   });
 
 
-class Editor extends React.Component {
+class ForEditor extends React.Component {
 
     render(){
         return(
             <FroalaEditorComponent 
                 tag='textarea'
                 config={{
-                    placeholderText: 'Hello <br> World',
-                    charCounterCount: false,
-                    toolbarButtons: [['undo', 'redo' , 'bold'], ['alert', 'clear', 'insert']]
+                    placeholderText: 'Hello <br> World <br> Too',
+                    charCounterCount: false
                   }}
             />
         )
@@ -92,11 +91,6 @@ class Editor extends React.Component {
 
 
 
-export default Editor;
-const wrapper = document.getElementById("container");
-wrapper ? ReactDOM.render(<Editor />, wrapper) : false;
-
-
-
-
-//ReactDOM.render(<FroalaEditorComponent tag='textarea'/>, document.getElementById('container'));
+export default ForEditor;
+const wrapper = document.getElementById("container2");
+wrapper ? ReactDOM.render(<ForEditor />, wrapper) : false;

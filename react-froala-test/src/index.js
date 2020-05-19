@@ -1,1 +1,2 @@
-import Form from "./js/components/Form";
+import Editor from "./js/components/Form";
+import ForEditor from "./js/components/forala";
