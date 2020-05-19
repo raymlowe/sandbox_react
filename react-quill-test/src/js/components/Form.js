@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill'; // ES6
 class Form extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: '' } // You can also pass a Quill Delta here
+    this.state = { text: 'Welcome to Quill JS <br> New Line' } // You can also pass a Quill Delta here
     this.handleChange = this.handleChange.bind(this)
   }
  
