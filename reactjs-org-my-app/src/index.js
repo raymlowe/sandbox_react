@@ -2,6 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+
+/**
+ * 
+ * NOTES:
+ *  JSX - syntax that makes structures easier to write:
+ *  we can use <div> instead of React.createElement('div')
+ * 
+ *  the ... -> This is ES6 syntax (not react)
+ *  This is a Spreat / Rest operator. The Spread operator legs you expand the iterable lie a string, object or array into 
+ *  its elements while the Rest operator does the inverse by reducing a set of elements into one array.
+ *  using ...props expands the props object from the parent component so all of its attributes are passed to the child (instead of only what the child needs)
+ * 
+ */
+
 /*
 class Square extends React.Component {
     render() {
