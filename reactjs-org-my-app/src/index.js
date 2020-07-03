@@ -15,14 +15,16 @@ class Square extends React.Component {
     }
   }
 */
-  //function components are used when only render is required
-
+  //function components are used when only render is required (aboce and below do the same thing)
+  //Square takes in it's value 'X' or 'O' as props and well as the JS function to execute onClick
   function Square(props){
     return (
       <button className="square" onClick={props.onClick}>{props.value}</button>
     );
   }
 
+  //This function simply lays out all winning states in arrays. With each click, we check to see if
+  //the input array has any character which follow the winning sequence, declare the winner
   function calculateWinner(squares){
     const lines = [
       [0, 1, 2],
@@ -44,52 +46,21 @@ class Square extends React.Component {
     return null;
   }
   
-  class Board extends React.Component {
-    
-    constructor(props){
-        super(props);
-        this.state={
-            squares: Array(9).fill(null),
-            xIsNext: true,
-        };
-    }
 
-    handleClick(i) {
-      //since() is used to make this method immutable. Instead of modifying the data, we copy new values into it
-      const squares = this.state.squares.slice();
-      //if game is over, return
-      if(calculateWinner(squares) || squares[i]){
-        return;
-      }
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({
-        squares: squares,
-        xIsNext: !this.state.xIsNext,
-      });
-      console.log(squares);
-    }
-    
+  class Board extends React.Component {
     renderSquare(i) {
       return (
         <Square 
-          value={this.state.squares[i]} 
-          onClick={() => this.handleClick(i)}
+          value={this.props.squares[i]} 
+          onClick={() => this.props.onClick(i)}
         />
       );
     }
-  
+
+    //Render the board. Assign each square a number
     render() {
-      const winner = calculateWinner(this.state.squares);
-      let status;
-      if(winner){
-        status = 'Winner: '+winner;
-      }else{
-        status='Next player: ' +(this.state.xIsNext ? 'X' : 'O')
-      }
-  
       return (
         <div>
-          <div className="status">{status}</div>
           <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
@@ -110,16 +81,91 @@ class Square extends React.Component {
     }
   }
   
+  //Game React Object orchestrates the game
+  
   class Game extends React.Component {
+    //build constructor
+    constructor(props){
+      super(props);
+      //Initialize state container
+      this.state={
+          history: [{
+            squares: Array(9).fill(null),
+          }],
+          stepNumber: 0,
+          xIsNext: true,
+      };
+    }
+
+    //Handle Click is passed to squares. By declaring at this level, we can capture things like history at this level
+    //The history object is immutable, so we use .slice to copy values to it (instead of directly modifying it)
+    //The squares object is immutable, we make copies (.slice) of it so that each of the game states are saved
+    handleClick(i) {
+      const history = this.state.history.slice(0, this.state.stepNumber+1);
+      const current = history[history.length - 1];
+      //since() is used to make this method immutable. Instead of modifying the data, we copy new values into it
+      const squares = current.squares.slice();
+      //if game is over, return
+      if(calculateWinner(squares) || squares[i]){
+        return;
+      }
+      squares[i] = this.state.xIsNext ? 'X' : 'O';
+      this.setState({
+        history: history.concat([{
+          squares: squares,
+        }]),
+        stepNumber: history.length,
+        xIsNext: !this.state.xIsNext
+      });
+      console.log(squares);
+    }
+
+    //method to change state of game
+    jumpTo(step){
+      this.setState({
+        stepNumber: step,
+        xIsNext: (step %2)===0
+      })
+    }
+    
     render() {
+      const history = this.state.history;
+      const current = history[this.state.stepNumber];
+      const winner = calculateWinner(current.squares);
+
+      const moves = history.map((step,move) => {
+        const desc = move ? 
+          'Go to move#' + move:
+          'Go to game start';
+        //Key: key is a keyword. cannot be accessed by this.props.key. Used by react internally
+        //We assign keys to this dynamic list so that when the list is re-rendered, react can 
+        //search previous iterations for the same key. Now each history has a unique ID. The 
+        //moves are never re-ordered, deleted or inserted so it is safe to use as a key
+        return(
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        )
+      })
+
+      let status;
+      if(winner){
+        status = 'Winner: '+winner;
+      }else{
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      }
+
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board 
+              squares={current.squares}
+              onClick={(i) => this.handleClick(i)}
+            />
           </div>
           <div className="game-info">
-            <div>{/* status */}</div>
-            <ol>{/* TODO */}</ol>
+            <div>{status}</div>
+            <ol>{moves}</ol>
           </div>
         </div>
       );
